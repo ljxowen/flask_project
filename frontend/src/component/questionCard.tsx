@@ -89,7 +89,7 @@ const Questionnaire: React.FC = () => {
           disabled={currentPage === 0}
           style={{ marginRight: '8px' }}
         >
-          上一页
+          Back
         </Button>
         <Button
           variant="contained"
@@ -97,7 +97,7 @@ const Questionnaire: React.FC = () => {
           onClick={handleNextPage}
           disabled={currentPage >= Math.ceil(questions.length / questionsPerPage) - 1}
         >
-          下一页
+          Next
         </Button>
       </div>
     </Container>
