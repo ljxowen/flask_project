@@ -1,7 +1,9 @@
-from flask import request, jsonify
-from config import app, db
-from models import User
+from flask import request, Blueprint, jsonify
+from app.core.config import db
+from app.models.user import User
+from app.main import app
 
+bp = Blueprint('user', __name__, url_prefix='/api/user')
 
 @app.route("/users", methods=["GET"])
 def get_contacts():
