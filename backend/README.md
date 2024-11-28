@@ -14,7 +14,7 @@ Then go to the `/backend` and running the flask-migrate command:
 $ flask db init
 ```
 
-This will craete the folder `/backend/migrations`, you can check and edit the migrate file in `/migrations/versions` for different version of database structure. 
+This will create the folder `/backend/migrations`, you can check and edit the migrate file in `/migrations/versions` for different version of database structure. 
 
 To genereate the migrate file in `versions` based on sqlarchemy code, run command:
 
