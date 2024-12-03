@@ -11,6 +11,11 @@ class Settings(BaseSettings):
         env_file="../.env", env_ignore_empty=True, extra="ignore"
     )
 
+    PROJECT_NAME: str 
+
+    # API
+    API_V1_STR: str = "/api"
+
     # PROJECT_NAME: str
     # SENTRY_DSN: HttpUrl | None = None
     POSTGRES_SERVER: str

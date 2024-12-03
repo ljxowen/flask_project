@@ -10,4 +10,5 @@ class db_config:
 
 #create a SQLAlchemy instance
 db = SQLAlchemy(model_class=Base)
+db_session = db.session
 

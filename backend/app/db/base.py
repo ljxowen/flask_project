@@ -2,4 +2,5 @@
 # imported by Alembic or used by Flask
 from app.db.base_class import Base # noqa
 from app.models.user import User # noqa
+from app.models.question import Question # noqa
 
