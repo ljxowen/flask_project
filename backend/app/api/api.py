@@ -8,5 +8,7 @@ from app.api.routes.user import bp as user_bp
 
 app.register_blueprint(user_bp)
 
-#register all the routes in bp into docs
+# register all the routes in bp into docs
 docs.register_existing_resources()
+
+

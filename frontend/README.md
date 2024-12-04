@@ -48,3 +48,32 @@ export default tseslint.config({
   },
 })
 ```
+
+## Frontend development
+
+### Local development
+
+* Within the `frontend` directory, install the necessary NPM packages:
+
+```bash
+npm install
+```
+
+* And start the live server with the following `npm` script:
+
+```bash
+npm run dev
+```
+
+* Then open your browser at http://localhost:5173/.
+
+### Generate Client
+
+* Start the backend. Download the OpenAPI JSON file from "http://localhost:5001/api/swagger/" and copy it to a new file `openapi.json` at the root of the `frontend` directory.
+
+* To generate the frontend client, run:
+
+```bash
+npm run generate-client
+```
+Notice that everytime the backend changes (changing the OpenAPI schema), you should follow these steps again to update the frontend client.

@@ -9,10 +9,6 @@ def get_user_by_id(db_session, id):
     return db_session.query(User).filter(User.id == id).first()
 
 
-def ger_user_by_usernaame(db_session, username):
-    return db_session.query(User).filter(User.username == username).first()
-
-
 def get_user_by_username(db_session, first_name, last_name):
     return db_session.query(User).filter(
                 and_(User.first_name == first_name, 

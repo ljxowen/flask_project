@@ -21,12 +21,9 @@ db.init_app(app)
 migrate = Migrate(app, db, compare_type=True)
 
 # setup api
-from app.api import api #noqa
-
-print("start application")
-print(app.url_map)
+from app.api import api # noqa
+# setup error handle
+from app.core import errors # noqa
 
 if __name__ == "__main__":
-    # with app.app_context():
-    #     db.create_all()
     app.run(debug=True, port=5001)

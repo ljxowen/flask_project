@@ -1,6 +1,8 @@
 # Flask Project - Backend
 
-## Flask-Migrate
+## Backend development
+
+### Flask-Migrate
 By using flask-migrate to init the database, you may need set the env variable to tell flask where is your start python file:
 
 (Windows)
@@ -28,6 +30,6 @@ To apply or update the new migrate file to database, run command:
 $ flask db upgrade
 ```
 
-## Adminer
+### Adminer
 
 To visualize the database, you can access adminer: (http://localhost:8080). In log page, you can enter the varialble based in `.env` file.

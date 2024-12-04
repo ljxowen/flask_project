@@ -3,8 +3,5 @@
 # Import installed packages
 from marshmallow import Schema, fields
 
-# Import app code
-
-
 class BaseSchema(Schema):
     pass

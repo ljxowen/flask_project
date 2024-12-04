@@ -1,0 +1,323 @@
+{
+  "definitions": {
+    "User": {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "designed_question_id": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "email": {
+          "format": "email",
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "last_name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UserCreate": {
+      "properties": {
+        "email": {
+          "format": "email",
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "first_name",
+        "last_name"
+      ],
+      "type": "object"
+    },
+    "UserDelete": {
+      "properties": {
+        "email": {
+          "format": "email",
+          "type": "string"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "type": "object"
+    },
+    "UserUpdate": {
+      "properties": {
+        "current_email": {
+          "format": "email",
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "new_email": {
+          "format": "email",
+          "type": "string"
+        }
+      },
+      "required": [
+        "current_email",
+        "first_name",
+        "last_name"
+      ],
+      "type": "object"
+    }
+  },
+  "info": {
+    "title": "flask_project",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/user/create_user": {
+      "options": {
+        "description": "Create the users",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserCreate"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "post": {
+        "description": "Create the users",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserCreate"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/user/delete_user/{user_id}": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete the users",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserDelete"
+            }
+          },
+          {
+            "format": "int32",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Delete the users",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserDelete"
+            }
+          },
+          {
+            "format": "int32",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/user/update_user/{user_id}": {
+      "options": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update the users",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserUpdate"
+            }
+          },
+          {
+            "format": "int32",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update the users",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserUpdate"
+            }
+          },
+          {
+            "format": "int32",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/user/users": {
+      "get": {
+        "description": "Retrieve the users",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/User"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "options": {
+        "description": "Retrieve the users",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/User"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0"
+}
