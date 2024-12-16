@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Questionnaire from './component/questionCard'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignUp from './routes/SignUp'
+import SignIn from './routes/SignIn'
+import Home from './routes/Home'
+import Design from "./routes/Design"
+
+
 
 function App() {
   const [users, setUsers] = useState([])
@@ -17,9 +23,15 @@ function App() {
   }, [])
 
   return (
-    <>
-      < Questionnaire />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/Design" element={<Design />} />
+        {/* <Route path="/MovieDetail/:id" element={<MovieDetail />} /> */}
+      </Routes>
+    </Router>
   )
 }
 
