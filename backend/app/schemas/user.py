@@ -15,6 +15,7 @@ class UserSchema(BaseSchema):
     last_name = fields.Str()
     email = fields.Email()
     designed_question_id = fields.List(fields.Str())
+    is_active = fields.Bool()
 
 
 class UserCreateSchema(BaseSchema):
@@ -32,3 +33,7 @@ class UserUpdateSchema(BaseSchema):
 
 class UserDeleteSchema(BaseSchema):
     email = fields.Email(required=True)
+
+
+class LoginSchema(BaseSchema):
+    email = fields.Email()

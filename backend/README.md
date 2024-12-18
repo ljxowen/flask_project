@@ -33,3 +33,9 @@ $ flask db upgrade
 ### Adminer
 
 To visualize the database, you can access adminer: (http://localhost:8080). In log page, you can enter the varialble based in `.env` file.
+
+
+### Docs
+
+Swagger-UI Docs : (http://127.0.0.1:5001/swagger-ui/)
+OpenApi Json: (http://127.0.0.1:5001/api/swagger/)

@@ -11,18 +11,20 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 
 function ResponsiveAppBar() {
   const pages = ['Home', 'Rank', 'Design'];
-  const settings = ['Profile', 'Logout'];
+  const loginSettings = ['Profile', 'Logout'];
+  const logoutSettings = ['Login', 'Sign Up'];
 
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const { isAuthenticated } = useAuth();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -43,6 +45,12 @@ function ResponsiveAppBar() {
     if (page === "Home") {
       page = "";
     };
+    if (page === "Login") {
+      page = "SignIn"
+    }
+    if (page === "Sign Up") {
+      page = "SignUp"
+    }
     navigate(`/${page}`);
     handleCloseNavMenu();
   };
@@ -166,20 +174,36 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography 
-                    sx={{ 
-                      textAlign: 'center',
-                      '&:hover': {
-                        color: (theme) => theme.palette.primary.main,
-                      },
-                    }}
-                  >
-                    {setting}
-                  </Typography>
+              {isAuthenticated ? (
+                loginSettings.map((setting) => (
+                  <MenuItem key={setting} onClick={() => handleNavigate(setting)}>
+                    <Typography 
+                      sx={{ 
+                        textAlign: 'center',
+                        '&:hover': {
+                          color: (theme) => theme.palette.primary.main,
+                        },
+                      }}
+                    >
+                      {setting}
+                    </Typography>
+                  </MenuItem>
+                ))
+              ) : (
+                logoutSettings.map((setting) => (
+                  <MenuItem key={setting} onClick={() => handleNavigate(setting)}>
+                    <Typography
+                      sx={{
+                        textAlign: 'center',
+                        '&:hover': {
+                          color: (theme) => theme.palette.primary.main,
+                        },
+                      }}
+                    >
+                      {setting}
+                    </Typography>
                 </MenuItem>
-              ))}
+              )))}
             </Menu>
           </Box>
         </Toolbar>

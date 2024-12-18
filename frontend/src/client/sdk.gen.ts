@@ -3,7 +3,40 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { OptionsApiUserCreateUserData, OptionsApiUserCreateUserResponse, PostApiUserCreateUserData, PostApiUserCreateUserResponse, DeleteApiUserDeleteUserByUserIdData, DeleteApiUserDeleteUserByUserIdResponse, OptionsApiUserDeleteUserByUserIdData, OptionsApiUserDeleteUserByUserIdResponse, OptionsApiUserUpdateUserByUserIdData, OptionsApiUserUpdateUserByUserIdResponse, PatchApiUserUpdateUserByUserIdData, PatchApiUserUpdateUserByUserIdResponse, GetApiUserUsersResponse, OptionsApiUserUsersResponse } from './types.gen';
+import type { OptionsApiLoginUsersData, OptionsApiLoginUsersResponse, PostApiLoginUsersData, PostApiLoginUsersResponse, OptionsApiUserCreateUserData, OptionsApiUserCreateUserResponse, PostApiUserCreateUserData, PostApiUserCreateUserResponse, DeleteApiUserDeleteUserData, DeleteApiUserDeleteUserResponse, OptionsApiUserDeleteUserData, OptionsApiUserDeleteUserResponse, OptionsApiUserUpdateUserData, OptionsApiUserUpdateUserResponse, PatchApiUserUpdateUserData, PatchApiUserUpdateUserResponse, GetApiUserUserByEmailData, GetApiUserUserByEmailResponse, OptionsApiUserUserByEmailData, OptionsApiUserUserByEmailResponse, GetApiUserUsersResponse, OptionsApiUserUsersResponse } from './types.gen';
+
+export class LoginService {
+    /**
+     * Login to get token(email)
+     * @param data The data for the request.
+     * @param data.body
+     * @returns Login
+     * @throws ApiError
+     */
+    public static optionsApiLoginUsers(data: OptionsApiLoginUsersData = {}): CancelablePromise<OptionsApiLoginUsersResponse> {
+        return __request(OpenAPI, {
+            method: 'OPTIONS',
+            url: '/api/login/users',
+            body: data.body
+        });
+    }
+    
+    /**
+     * Login to get token(email)
+     * @param data The data for the request.
+     * @param data.body
+     * @returns Login
+     * @throws ApiError
+     */
+    public static postApiLoginUsers(data: PostApiLoginUsersData = {}): CancelablePromise<PostApiLoginUsersResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/login/users',
+            body: data.body
+        });
+    }
+    
+}
 
 export class UsersService {
     /**
@@ -39,18 +72,14 @@ export class UsersService {
     /**
      * Delete the users
      * @param data The data for the request.
-     * @param data.userId
      * @param data.body
      * @returns User
      * @throws ApiError
      */
-    public static deleteApiUserDeleteUserByUserId(data: DeleteApiUserDeleteUserByUserIdData): CancelablePromise<DeleteApiUserDeleteUserByUserIdResponse> {
+    public static deleteApiUserDeleteUser(data: DeleteApiUserDeleteUserData = {}): CancelablePromise<DeleteApiUserDeleteUserResponse> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/user/delete_user/{user_id}',
-            path: {
-                user_id: data.userId
-            },
+            url: '/api/user/delete_user',
             body: data.body
         });
     }
@@ -58,18 +87,14 @@ export class UsersService {
     /**
      * Delete the users
      * @param data The data for the request.
-     * @param data.userId
      * @param data.body
      * @returns User
      * @throws ApiError
      */
-    public static optionsApiUserDeleteUserByUserId(data: OptionsApiUserDeleteUserByUserIdData): CancelablePromise<OptionsApiUserDeleteUserByUserIdResponse> {
+    public static optionsApiUserDeleteUser(data: OptionsApiUserDeleteUserData = {}): CancelablePromise<OptionsApiUserDeleteUserResponse> {
         return __request(OpenAPI, {
             method: 'OPTIONS',
-            url: '/api/user/delete_user/{user_id}',
-            path: {
-                user_id: data.userId
-            },
+            url: '/api/user/delete_user',
             body: data.body
         });
     }
@@ -77,18 +102,14 @@ export class UsersService {
     /**
      * Update the users
      * @param data The data for the request.
-     * @param data.userId
      * @param data.body
      * @returns User
      * @throws ApiError
      */
-    public static optionsApiUserUpdateUserByUserId(data: OptionsApiUserUpdateUserByUserIdData): CancelablePromise<OptionsApiUserUpdateUserByUserIdResponse> {
+    public static optionsApiUserUpdateUser(data: OptionsApiUserUpdateUserData = {}): CancelablePromise<OptionsApiUserUpdateUserResponse> {
         return __request(OpenAPI, {
             method: 'OPTIONS',
-            url: '/api/user/update_user/{user_id}',
-            path: {
-                user_id: data.userId
-            },
+            url: '/api/user/update_user',
             body: data.body
         });
     }
@@ -96,19 +117,49 @@ export class UsersService {
     /**
      * Update the users
      * @param data The data for the request.
-     * @param data.userId
      * @param data.body
      * @returns User
      * @throws ApiError
      */
-    public static patchApiUserUpdateUserByUserId(data: PatchApiUserUpdateUserByUserIdData): CancelablePromise<PatchApiUserUpdateUserByUserIdResponse> {
+    public static patchApiUserUpdateUser(data: PatchApiUserUpdateUserData = {}): CancelablePromise<PatchApiUserUpdateUserResponse> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/user/update_user/{user_id}',
-            path: {
-                user_id: data.userId
-            },
+            url: '/api/user/update_user',
             body: data.body
+        });
+    }
+    
+    /**
+     * get the current user by Email
+     * @param data The data for the request.
+     * @param data.email
+     * @returns User
+     * @throws ApiError
+     */
+    public static getApiUserUserByEmail(data: GetApiUserUserByEmailData): CancelablePromise<GetApiUserUserByEmailResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/user/{email}',
+            path: {
+                email: data.email
+            }
+        });
+    }
+    
+    /**
+     * get the current user by Email
+     * @param data The data for the request.
+     * @param data.email
+     * @returns User
+     * @throws ApiError
+     */
+    public static optionsApiUserUserByEmail(data: OptionsApiUserUserByEmailData): CancelablePromise<OptionsApiUserUserByEmailResponse> {
+        return __request(OpenAPI, {
+            method: 'OPTIONS',
+            url: '/api/user/user/{email}',
+            path: {
+                email: data.email
+            }
         });
     }
     

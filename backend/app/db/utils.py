@@ -23,6 +23,8 @@ def get_user_by_mail(db_session, email):
 def get_users(db_session):
     return db_session.query(User).all()
 
+def check_if_user_is_active(user):
+    return user.is_active
 
 def create_user(db_session, first_name, last_name, email):
     user = User(
@@ -60,4 +62,11 @@ def delete_user(db_session, email):
         db_session.delete(user)
         db_session.commit()
 
+    return user
+
+
+def authenticate(db_session, email):
+    user = get_user_by_mail(db_session, email)
+    if not user:
+        return None
     return user

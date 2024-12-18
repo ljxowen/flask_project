@@ -10,4 +10,5 @@ class User(Base):
     last_name = Column(String, nullable=False, index=True)
     email = Column(String, unique=True, nullable=False, index=True)
     designed_question_id = Column(ARRAY(String), default=[], unique=False, nullable=False)
+    is_active = Column(Boolean(), default=True)
 

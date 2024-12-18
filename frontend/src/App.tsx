@@ -5,6 +5,7 @@ import SignUp from './routes/SignUp'
 import SignIn from './routes/SignIn'
 import Home from './routes/Home'
 import Design from "./routes/Design"
+import { AuthProvider } from './context/AuthContext';
 
 
 
@@ -24,13 +25,15 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/Design" element={<Design />} />
-        {/* <Route path="/MovieDetail/:id" element={<MovieDetail />} /> */}
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/SignIn" element={<SignIn />} />
+          <Route path="/Design" element={<Design />} />
+          {/* <Route path="/MovieDetail/:id" element={<MovieDetail />} /> */}
+        </Routes>
+      </AuthProvider>
     </Router>
   )
 }

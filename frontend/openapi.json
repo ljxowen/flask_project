@@ -1,5 +1,14 @@
 {
   "definitions": {
+    "Login": {
+      "properties": {
+        "email": {
+          "format": "email",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "User": {
       "properties": {
         "created_at": {
@@ -21,6 +30,9 @@
         },
         "id": {
           "type": "integer"
+        },
+        "is_active": {
+          "type": "boolean"
         },
         "last_name": {
           "type": "string"
@@ -90,6 +102,56 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/login/users": {
+      "options": {
+        "description": "Login to get token(email)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        },
+        "tags": [
+          "login"
+        ]
+      },
+      "post": {
+        "description": "Login to get token(email)",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        },
+        "tags": [
+          "login"
+        ]
+      }
+    },
     "/api/user/create_user": {
       "options": {
         "description": "Create the users",
@@ -140,7 +202,7 @@
         ]
       }
     },
-    "/api/user/delete_user/{user_id}": {
+    "/api/user/delete_user": {
       "delete": {
         "consumes": [
           "application/json"
@@ -154,13 +216,6 @@
             "schema": {
               "$ref": "#/definitions/UserDelete"
             }
-          },
-          {
-            "format": "int32",
-            "in": "path",
-            "name": "user_id",
-            "required": true,
-            "type": "integer"
           }
         ],
         "responses": {
@@ -188,13 +243,6 @@
             "schema": {
               "$ref": "#/definitions/UserDelete"
             }
-          },
-          {
-            "format": "int32",
-            "in": "path",
-            "name": "user_id",
-            "required": true,
-            "type": "integer"
           }
         ],
         "responses": {
@@ -210,7 +258,7 @@
         ]
       }
     },
-    "/api/user/update_user/{user_id}": {
+    "/api/user/update_user": {
       "options": {
         "consumes": [
           "application/json"
@@ -224,13 +272,6 @@
             "schema": {
               "$ref": "#/definitions/UserUpdate"
             }
-          },
-          {
-            "format": "int32",
-            "in": "path",
-            "name": "user_id",
-            "required": true,
-            "type": "integer"
           }
         ],
         "responses": {
@@ -258,13 +299,52 @@
             "schema": {
               "$ref": "#/definitions/UserUpdate"
             }
-          },
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/user/user/{email}": {
+      "get": {
+        "description": "get the current user by Email",
+        "parameters": [
           {
-            "format": "int32",
             "in": "path",
-            "name": "user_id",
+            "name": "email",
             "required": true,
-            "type": "integer"
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "options": {
+        "description": "get the current user by Email",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

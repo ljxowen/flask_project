@@ -38,7 +38,7 @@ const SurveyQuestionApp: React.FC = () => {
 
   const handleAddQuestion = () => {
     if (currentQuestion.question.trim() === '') {
-      alert('问题内容不能为空！');
+      alert('Question Can Not Be Empty！');
       return;
     }
 
@@ -78,44 +78,22 @@ const SurveyQuestionApp: React.FC = () => {
     <Box sx={{ maxWidth: 600, margin: '20px auto' }}>
       <Card sx={{ marginBottom: 3, padding: 2 }}>
         <CardContent>
-          <Typography variant="h5" gutterBottom>
-            设计问卷问题
+          <Typography 
+            variant="h5" 
+            color="primary" 
+            sx={{ fontWeight: 'bold' }} 
+            gutterBottom
+          >
+            Question Design
           </Typography>
           <TextField
-            label="问题"
+            label="Question"
             variant="outlined"
             fullWidth
             margin="normal"
             value={currentQuestion.question}
             onChange={(e) =>
               setCurrentQuestion({ ...currentQuestion, question: e.target.value })
-            }
-          />
-          <FormControl fullWidth margin="normal" sx={{ marginTop: 2 }}>
-            <InputLabel id="question-type-label">问题类型</InputLabel>
-            <Select
-              labelId="question-type-label"
-              value={currentQuestion.questionType}
-              onChange={(e) =>
-                setCurrentQuestion({
-                  ...currentQuestion,
-                  questionType: e.target.value as 'open' | 'closed',
-                })
-              }
-              label="问题类型"
-            >
-              <MenuItem value="open">开放式</MenuItem>
-              <MenuItem value="closed">封闭式</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            label="问题解释"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={currentQuestion.description}
-            onChange={(e) =>
-              setCurrentQuestion({ ...currentQuestion, description: e.target.value })
             }
             multiline
             rows={3}
@@ -126,8 +104,43 @@ const SurveyQuestionApp: React.FC = () => {
               },
             }}
           />
+          <FormControl fullWidth margin="normal" sx={{ marginTop: 2 }}>
+            <InputLabel id="question-type-label">Question Type</InputLabel>
+            <Select
+              labelId="question-type-label"
+              value={currentQuestion.questionType}
+              onChange={(e) =>
+                setCurrentQuestion({
+                  ...currentQuestion,
+                  questionType: e.target.value as 'open' | 'closed',
+                })
+              }
+              label="Question Type"
+            >
+              <MenuItem value="open">Open-Ended</MenuItem>
+              <MenuItem value="closed">Close-Ended</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
-            label="回答"
+            label="Description"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={currentQuestion.description}
+            onChange={(e) =>
+              setCurrentQuestion({ ...currentQuestion, description: e.target.value })
+            }
+            multiline
+            rows={5}
+            sx={{
+              '& .MuiInputBase-root': {
+                resize: 'vertical',
+                overflow: 'auto',
+              },
+            }}
+          />
+          <TextField
+            label="Answer"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -151,7 +164,7 @@ const SurveyQuestionApp: React.FC = () => {
             sx={{ marginTop: 2 }}
             onClick={handleAddQuestion}
           >
-            添加问题
+            Add New
           </Button>
         </CardContent>
       </Card>
@@ -162,7 +175,7 @@ const SurveyQuestionApp: React.FC = () => {
             {card.isEditing ? (
               <>
                 <TextField
-                  label="问题"
+                  label="Question"
                   variant="outlined"
                   fullWidth
                   margin="normal"
@@ -174,9 +187,37 @@ const SurveyQuestionApp: React.FC = () => {
                       )
                     )
                   }
+                  multiline
+                  rows={1}
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      resize: 'vertical',
+                      overflow: 'auto',
+                    },
+                  }}
                 />
+                <FormControl fullWidth margin="normal" sx={{ marginTop: 2 }}>
+                  <InputLabel id="question-type-label">Question Type</InputLabel>
+                  <Select
+                    labelId="question-type-label"
+                    value={card.questionType}
+                    onChange={(e) =>
+                      setQuestionCards((prev) =>
+                        prev.map((c) =>
+                          c.id === card.id ? { 
+                            ...c, 
+                            questionType: e.target.value as 'open' | 'closed' } : c
+                        )
+                      )
+                    }
+                    label="Question Type"
+                  >
+                    <MenuItem value="open">Open-Ended</MenuItem>
+                    <MenuItem value="closed">Close-Ended</MenuItem>
+                  </Select>
+                </FormControl>
                 <TextField
-                  label="问题解释"
+                  label="Description"
                   variant="outlined"
                   fullWidth
                   margin="normal"
@@ -198,7 +239,7 @@ const SurveyQuestionApp: React.FC = () => {
                   }}
                 />
                 <TextField
-                  label="回答"
+                  label="Answer"
                   variant="outlined"
                   fullWidth
                   margin="normal"
@@ -211,7 +252,7 @@ const SurveyQuestionApp: React.FC = () => {
                     )
                   }
                   multiline
-                  rows={5}
+                  rows={3}
                   sx={{
                     '& .MuiInputBase-root': {
                       resize: 'vertical',
@@ -226,19 +267,22 @@ const SurveyQuestionApp: React.FC = () => {
                   sx={{ marginTop: 2 }}
                   onClick={() => handleSaveQuestion(card.id, card)}
                 >
-                  保存
+                  Save
                 </Button>
               </>
             ) : (
               <>
-                <Typography variant="h6" gutterBottom>
-                  问题：{card.question}
+                <Typography variant="body1" color="primary" gutterBottom>
+                  Question：{card.question}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" gutterBottom>
-                  解释：{card.description}
+                <Typography variant="body2" color="primary" gutterBottom>
+                  Type：{card.questionType}
                 </Typography>
-                <Typography variant="body1" gutterBottom>
-                  回答：{card.response}
+                <Typography variant="body2" color="primary" gutterBottom>
+                  Description：{card.description}
+                </Typography>
+                <Typography variant="body2" color="primary" gutterBottom>
+                  Answer：{card.response}
                 </Typography>
                 <Box display="flex" justifyContent="space-between">
                   <IconButton

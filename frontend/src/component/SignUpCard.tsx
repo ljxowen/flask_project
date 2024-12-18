@@ -23,15 +23,9 @@ const Card = styled(MuiCard)(({ theme }) => ({
   padding: theme.spacing(4),
   gap: theme.spacing(2),
   margin: 'auto',
-  // boxShadow:
-  //   'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
   [theme.breakpoints.up('sm')]: {
     width: '450px',
   },
-  // ...theme.applyStyles('dark', {
-  //   boxShadow:
-  //     'hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px',
-  // }),
 }));
 
 const SignUpContainer = styled(Stack)(({ theme }) => ({
@@ -48,28 +42,19 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
     position: 'absolute',
     zIndex: -1,
     inset: 0,
-    // backgroundImage:
-    //   'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-    // backgroundRepeat: 'no-repeat',
-    // ...theme.applyStyles('dark', {
-    //   backgroundImage:
-    //     'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-    // }),
   },
 }));
 
 export default function SignUpCard() {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
-    const password = document.getElementById('password') as HTMLInputElement;
-    const name = document.getElementById('name') as HTMLInputElement;
+    const first_name = document.getElementById('first_name') as HTMLInputElement;
+    const last_name = document.getElementById('last_name') as HTMLInputElement;
 
     let isValid = true;
 
@@ -82,18 +67,18 @@ export default function SignUpCard() {
       setEmailErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
+    if (!first_name.value || first_name.value.length < 1) {
+      setNameError(true);
+      setNameErrorMessage('First Name is required.');
       isValid = false;
     } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
+      setNameError(false);
+      setNameErrorMessage('');
     }
 
-    if (!name.value || name.value.length < 1) {
+    if (!last_name.value || last_name.value.length < 1) {
       setNameError(true);
-      setNameErrorMessage('Name is required.');
+      setNameErrorMessage('Last Name is required.');
       isValid = false;
     } else {
       setNameError(false);
@@ -104,16 +89,15 @@ export default function SignUpCard() {
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (nameError || emailError || passwordError) {
+    if (nameError || emailError) {
       event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
     console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
       email: data.get('email'),
-      password: data.get('password'),
+      first_name: data.get('first_name'),
+      last_name: data.get('last_name'),
     });
   };
 
@@ -144,20 +128,6 @@ export default function SignUpCard() {
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name">Full name</FormLabel>
-              <TextField
-                autoComplete="name"
-                name="name"
-                required
-                fullWidth
-                id="name"
-                placeholder="Jon Snow"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? 'error' : 'primary'}
-              />
-            </FormControl>
-            <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
               <TextField
                 required
@@ -169,23 +139,35 @@ export default function SignUpCard() {
                 variant="outlined"
                 error={emailError}
                 helperText={emailErrorMessage}
-                color={passwordError ? 'error' : 'primary'}
+                color={emailError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="first_name">First name</FormLabel>
               <TextField
+                autoComplete="given_name"
+                name="first_name"
                 required
                 fullWidth
-                name="password"
-                placeholder="••••••"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-                variant="outlined"
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                color={passwordError ? 'error' : 'primary'}
+                id="first_name"
+                placeholder="First Name"
+                error={nameError}
+                helperText={nameErrorMessage}
+                color={nameError ? 'error' : 'primary'}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="last_name">Last name</FormLabel>
+              <TextField
+                autoComplete="family_name"
+                name="last_name"
+                required
+                fullWidth
+                id="last_name"
+                placeholder="Last Name"
+                error={nameError}
+                helperText={nameErrorMessage}
+                color={nameError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControlLabel
@@ -209,9 +191,9 @@ export default function SignUpCard() {
               Already have an account?{' '}
               <MuiLink
                 component={RouterLink}
-                to={`/`}
+                to={`/SignIn`}
               >
-                Sign up
+                Sign In
               </MuiLink>
             </Typography>
           </Box>
