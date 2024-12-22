@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -45,14 +46,24 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export default function SignUpCard() {
+interface SignUpCardProps {
+  onSubmit: (email: string, first_name: string, last_name: string) => void;
+  loading: boolean;
+}
+
+const SignUpCard: React.FC<SignUpCardProps> = ({ onSubmit, loading }) => {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-  const [nameError, setNameError] = React.useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+  const [reEmailError, setReEmailError] = React.useState(false);
+  const [reEmailErrorMessage, setReEmailErrorMessage] = React.useState('');
+  const [firstNameError, setFirstNameError] = React.useState(false);
+  const [firstNameErrorMessage, setFirstNameErrorMessage] = React.useState('');
+  const [lastNameError, setLastNameError] = React.useState(false);
+  const [lastNameErrorMessage, setLastNameErrorMessage] = React.useState('');
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
+    const re_email = document.getElementById('re-email') as HTMLInputElement;
     const first_name = document.getElementById('first_name') as HTMLInputElement;
     const last_name = document.getElementById('last_name') as HTMLInputElement;
 
@@ -67,38 +78,64 @@ export default function SignUpCard() {
       setEmailErrorMessage('');
     }
 
-    if (!first_name.value || first_name.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage('First Name is required.');
+    if (!re_email || re_email.value !== email.value) {
+      setReEmailError(true);
+      setReEmailErrorMessage("Email dosen't match");
       isValid = false;
     } else {
-      setNameError(false);
-      setNameErrorMessage('');
+      setReEmailError(false);
+      setReEmailErrorMessage('');
+    }
+
+    if (!first_name.value || first_name.value.length < 1) {
+      setFirstNameError(true);
+      setFirstNameErrorMessage('First Name is required.');
+      isValid = false;
+    } else {
+      setFirstNameError(false);
+      setFirstNameErrorMessage('');
     }
 
     if (!last_name.value || last_name.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage('Last Name is required.');
+      setLastNameError(true);
+      setLastNameErrorMessage('Last Name is required.');
       isValid = false;
     } else {
-      setNameError(false);
-      setNameErrorMessage('');
+      setLastNameError(false);
+      setLastNameErrorMessage('');
     }
 
     return isValid;
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (nameError || emailError) {
-      event.preventDefault();
-      return;
-    }
+    // if (nameError || emailError) {
+    //   event.preventDefault();
+    //   return;
+    // }
+    event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      first_name: data.get('first_name'),
-      last_name: data.get('last_name'),
-    });
+    const email = data.get("email");
+    const first_name = data.get("first_name");
+    const last_name = data.get("last_name");
+
+    if (
+      email && first_name && last_name &&
+      typeof email === "string" &&
+      typeof first_name === "string" &&
+      typeof last_name === "string"
+    ) {
+      console.log({
+        email: email,
+        first_name: first_name,
+        last_name: last_name,
+      });
+
+      onSubmit(email, first_name, last_name);
+    } else {
+      console.log("input data is not valid");
+    }
   };
 
   return (
@@ -106,7 +143,7 @@ export default function SignUpCard() {
       <CssBaseline enableColorScheme />
       {/* <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} /> */}
       <SignUpContainer direction="column" justifyContent="space-between">
-        <Card variant="outlined">
+        <Card sx={{ boxShadow: 'none', border: 'none' }}>
           <Box
             component="img"
             src="\m24_bw_dark.png"
@@ -143,6 +180,21 @@ export default function SignUpCard() {
               />
             </FormControl>
             <FormControl>
+              <FormLabel htmlFor="email">Re-Enter Email</FormLabel>
+              <TextField
+                required
+                fullWidth
+                id="re-email"
+                placeholder="your@email.com"
+                name="re-email"
+                autoComplete="email"
+                variant="outlined"
+                error={reEmailError}
+                helperText={reEmailErrorMessage}
+                color={reEmailError ? 'error' : 'primary'}
+              />
+            </FormControl>
+            <FormControl>
               <FormLabel htmlFor="first_name">First name</FormLabel>
               <TextField
                 autoComplete="given_name"
@@ -151,9 +203,9 @@ export default function SignUpCard() {
                 fullWidth
                 id="first_name"
                 placeholder="First Name"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? 'error' : 'primary'}
+                error={firstNameError}
+                helperText={firstNameErrorMessage}
+                color={firstNameError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControl>
@@ -165,9 +217,9 @@ export default function SignUpCard() {
                 fullWidth
                 id="last_name"
                 placeholder="Last Name"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? 'error' : 'primary'}
+                error={lastNameError}
+                helperText={lastNameErrorMessage}
+                color={lastNameError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControlLabel
@@ -179,6 +231,8 @@ export default function SignUpCard() {
               fullWidth
               variant="contained"
               onClick={validateInputs}
+              disabled={loading}
+              startIcon={loading ? <CircularProgress/> : null}
             >
               Sign up
             </Button>
@@ -202,3 +256,5 @@ export default function SignUpCard() {
     </>
   );
 }
+
+export default SignUpCard;

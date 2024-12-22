@@ -122,7 +122,7 @@ const SurveyQuestionApp: React.FC = () => {
             </Select>
           </FormControl>
           <TextField
-            label="Description"
+            label="Rating & Description"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -217,7 +217,7 @@ const SurveyQuestionApp: React.FC = () => {
                   </Select>
                 </FormControl>
                 <TextField
-                  label="Description"
+                  label="Rating & Description"
                   variant="outlined"
                   fullWidth
                   margin="normal"
@@ -273,16 +273,16 @@ const SurveyQuestionApp: React.FC = () => {
             ) : (
               <>
                 <Typography variant="body1" color="primary" gutterBottom>
-                  Question：{card.question}
+                  Ques：{card.question}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
                   Type：{card.questionType}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Description：{card.description}
+                  Rat & Des：{card.description}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Answer：{card.response}
+                  Ans：{card.response}
                 </Typography>
                 <Box display="flex" justifyContent="space-between">
                   <IconButton

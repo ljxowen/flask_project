@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -47,7 +48,12 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export default function SignInCard() {
+interface SignInCardProps {
+  onSubmit: (email: string) => void;
+  loading: boolean;
+}
+
+const SignInCard: React.FC<SignInCardProps> = ({ onSubmit, loading }) => {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   // const [open, setOpen] = React.useState(false);
@@ -61,14 +67,24 @@ export default function SignInCard() {
   // };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError) {
-      event.preventDefault();
-      return;
-    }
+    // if (emailError) {
+    //   event.preventDefault();
+    //   return;
+    // }
+    event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-    });
+    const email = data.get('email');
+
+    if (email && typeof email === "string") {
+      console.log({
+        email: email,
+      });
+      
+      onSubmit(email);
+    } else {
+      console.log("email is null");
+    }
   };
 
   const validateInputs = () => {
@@ -92,7 +108,7 @@ export default function SignInCard() {
     <>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between" sx={{ textAlign: 'left' }}>
-        <Card variant="outlined">
+        <Card sx={{ boxShadow: 'none', border: 'none' }}>
           <Box
             component="img"
             src="\m24_bw_dark.png"
@@ -145,6 +161,8 @@ export default function SignInCard() {
               fullWidth
               variant="contained"
               onClick={validateInputs}
+              disabled={loading}
+              startIcon={loading ? <CircularProgress/> : null}
             >
               Sign in
             </Button>
@@ -166,3 +184,5 @@ export default function SignInCard() {
     </>
   );
 }
+
+export default SignInCard;

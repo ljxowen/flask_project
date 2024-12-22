@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider } from '@emotion/react';
-import macTheme from '../theme/mac_theme'
+import macTheme from '../context/MacTheme'
 import ResponsiveAppBar from '../component/AppBar';
 import DesignCard from "../component/DesignCard";
 

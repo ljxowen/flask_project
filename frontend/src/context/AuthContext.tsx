@@ -1,13 +1,13 @@
 import React, { createContext, useState, ReactNode, useEffect, useCallback } from 'react';
 import { UsersService, LoginService, User } from '../client';
 import { useNavigate } from 'react-router-dom';
-import { message}  from 'antd'
+import { message } from '../utils/message';
 
 export const LOCALSTORAGE_ACCESS_TOKEN_NAME = 'access_token';
 
 interface AuthContextType {
   isAuthenticated: boolean | null;
-  login: (username: string, password: string) => Promise<void>;
+  login: (email: string) => Promise<void>;
   logout: () => void;
   user: User | undefined;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
@@ -20,7 +20,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [user, setUser] = useState<User>();
   const navigate = useNavigate();
-
+  console.log("Current Login Status: ", isAuthenticated);
 
   const logout = useCallback(() => {
     localStorage.removeItem(LOCALSTORAGE_ACCESS_TOKEN_NAME);
@@ -30,6 +30,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [navigate]);
 
   const checkAuth = useCallback(async () => {
+    console.log("checkAuth Triggerd")
     const token = localStorage.getItem(LOCALSTORAGE_ACCESS_TOKEN_NAME);
     if (token) {
       try {
@@ -77,7 +78,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       await getUser();
       setIsAuthenticated(true);
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('Login Error:', error);
       throw error;
     }
   };

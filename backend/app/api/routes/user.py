@@ -51,9 +51,8 @@ def route_get_user_email(email):
 @marshal_with(UserSchema())
 def route_create_user(first_name=None, last_name=None, email=None):
     if not first_name or not last_name or not email:
-        return (
-            jsonify({"message": "You must include a email and password"}),
-            400,
+        return abort(
+            400, f"You must include a email and password"
         )
 
     user = get_user_by_mail(email=email, db_session=db_session)

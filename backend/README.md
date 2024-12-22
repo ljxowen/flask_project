@@ -38,4 +38,5 @@ To visualize the database, you can access adminer: (http://localhost:8080). In l
 ### Docs
 
 Swagger-UI Docs : (http://127.0.0.1:5001/swagger-ui/)
+
 OpenApi Json: (http://127.0.0.1:5001/api/swagger/)

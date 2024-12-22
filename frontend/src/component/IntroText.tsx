@@ -20,7 +20,7 @@ const TextIntroduction = () => {
         // }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
-          Open and Close End Question Ranking
+          Open-Close Ended Question Ranking
         </Typography>
         <Typography variant="body1">
           We are conducting research to investigate the use LLMs (large language models) to improve the teaching and learning of design.

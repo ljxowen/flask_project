@@ -1,5 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
+import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -24,7 +25,7 @@ function ResponsiveAppBar() {
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -42,15 +43,15 @@ function ResponsiveAppBar() {
   };
 
   const handleNavigate = (page: string) => {
-    if (page === "Home") {
+    if (page === "Home") { page = "" };
+    if (page === "Login") { page = "SignIn" };
+    if (page === "Sign Up") { page = "SignUp" };
+
+    if (page === "Logout") { 
       page = "";
+      logout();
     };
-    if (page === "Login") {
-      page = "SignIn"
-    }
-    if (page === "Sign Up") {
-      page = "SignUp"
-    }
+    
     navigate(`/${page}`);
     handleCloseNavMenu();
   };
@@ -174,7 +175,9 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {isAuthenticated ? (
+              {isAuthenticated === null ? (
+                <CircularProgress/>
+              ) : isAuthenticated ? (
                 loginSettings.map((setting) => (
                   <MenuItem key={setting} onClick={() => handleNavigate(setting)}>
                     <Typography 
