@@ -40,13 +40,15 @@ def create_user(db_session, first_name, last_name, email):
     return user
 
 
-def update_user(db_session, current_email, first_name, last_name, new_email=None):
+def update_user(db_session, current_email, first_name=None, last_name=None, new_email=None):
     user = db_session.query(User).filter(User.email == current_email).first()
 
     if user:
-        user.first_name = first_name
-        user.last_name = last_name
-        if new_email: 
+        if first_name is not None:
+            user.first_name = first_name
+        if last_name is not None:
+            user.last_name = last_name
+        if new_email is not None: 
             user.email = new_email
 
         db_session.commit()

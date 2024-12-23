@@ -26,8 +26,8 @@ export type UserDelete = {
 
 export type UserUpdate = {
     current_email: string;
-    first_name: string;
-    last_name: string;
+    first_name?: string;
+    last_name?: string;
     new_email?: string;
 };
 

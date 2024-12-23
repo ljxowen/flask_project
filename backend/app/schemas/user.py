@@ -27,8 +27,8 @@ class UserCreateSchema(BaseSchema):
 class UserUpdateSchema(BaseSchema):
     current_email = fields.Email(required=True)
     new_email = fields.Email(required=False)
-    first_name = fields.Str(required=True)
-    last_name = fields.Str(required=True)
+    first_name = fields.Str(required=False)
+    last_name = fields.Str(required=False)
 
 
 class UserDeleteSchema(BaseSchema):

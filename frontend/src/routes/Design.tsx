@@ -4,7 +4,6 @@ import macTheme from '../context/MacTheme'
 import ResponsiveAppBar from '../component/AppBar';
 import DesignCard from "../component/DesignCard";
 
-
 const Home = () => {
   return (
     <ThemeProvider theme={macTheme}>

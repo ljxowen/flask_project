@@ -77,7 +77,7 @@ def route_create_user(first_name=None, last_name=None, email=None):
 @bp.route("/update_user", methods=["PATCH"])
 @use_kwargs(UserUpdateSchema, location="json")
 @marshal_with(UserSchema())
-def route_update_user(current_email, new_email, first_name, last_name):
+def route_update_user(current_email, new_email=None, first_name=None, last_name=None):
     user = update_user(
         db_session=db_session,
         current_email=current_email,
@@ -85,6 +85,11 @@ def route_update_user(current_email, new_email, first_name, last_name):
         last_name=last_name,
         new_email=new_email,
     )
+
+    if user is None:
+        return abort(
+            400, f"The user with this email failed to update: {current_email}"
+        )
 
     return user
 
