@@ -10,7 +10,8 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "backend\\app\\main.py",
+                // "FLASK_APP": "backend\\app\\main.py", // For Windows
+                "FLASK_APP": "backend/app/main", // For Mac
                 "FLASK_DEBUG": "1",
                 "FLASK_RUN_PORT": "5001",
             },
