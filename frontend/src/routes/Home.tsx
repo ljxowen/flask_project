@@ -8,10 +8,7 @@ import { useAuth } from "../hooks/useAuth";
 
 
 const Home = () => {
-  const { isAuthenticated } = useAuth()
-
-  useEffect(() => {
-  }, [])
+  const { isAuthenticated } = useAuth();
 
   return (
     <ThemeProvider theme={macTheme}>

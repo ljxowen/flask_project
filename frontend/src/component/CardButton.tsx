@@ -84,7 +84,7 @@ const CardButton: React.FC = () => {
   };
 
   const handleRankClick = () => {
-    navigate(`/Home`);
+    navigate(`/`);
   };
 
   return (
