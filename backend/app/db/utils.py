@@ -2,9 +2,9 @@ from app.models.user import User
 from app.models.question import Question
 from sqlalchemy import and_
 
-#CRUD operations
+# CRUD operations
 
-#User
+# User
 def get_user_by_id(db_session, id):
     return db_session.query(User).filter(User.id == id).first()
 
@@ -72,3 +72,23 @@ def authenticate(db_session, email):
     if not user:
         return None
     return user
+
+
+# Questions
+def create_question_list(db_session, questions):
+    question_list = []
+    for q in questions:
+        question = Question(
+            question = q["question"],
+            description = q["description"],
+            is_open = q["is_open"],
+            answer = q["answer"],
+        )
+
+        db_session.add(question)
+        db_session.commit()
+        db_session.refresh(question)
+
+        question_list.append(question)
+
+    return question_list

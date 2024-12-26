@@ -13,4 +13,8 @@ class QuestionSchema(BaseSchema):
     question = fields.Str()
     description = fields.Str()
     is_open = fields.Bool()
-    rank = fields.List(fields.Int())
+    answer = fields.Str()
+    # rank = fields.List(fields.Int())
+
+class QuestionListSchema(BaseSchema):
+    questions = fields.List(fields.Nested(QuestionSchema))

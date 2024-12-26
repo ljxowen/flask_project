@@ -72,7 +72,6 @@ def route_create_user(first_name=None, last_name=None, email=None):
     return user
 
 
-
 @doc(description="Update the users", tags=["users"], consumes=["application/json"])
 @bp.route("/update_user", methods=["PATCH"])
 @use_kwargs(UserUpdateSchema, location="json")
