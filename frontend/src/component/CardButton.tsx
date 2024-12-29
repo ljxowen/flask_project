@@ -84,6 +84,7 @@ const CardButton: React.FC = () => {
   };
 
   const handleRankClick = () => {
+    alert('This page not open yet');
     navigate(`/`);
   };
 

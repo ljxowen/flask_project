@@ -14,31 +14,49 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
+import AddIcon from '@mui/icons-material/Add';
+import SendIcon from '@mui/icons-material/Send';
 
-interface QuestionCardData {
+export interface QuestionCardData {
   id: number;
-  question: string;
-  description: string;
-  questionType: 'open' | 'closed';
-  response: string;
+  data: {
+    question: string;
+    description: string;
+    questionType: 'open' | 'closed';
+    answer: string;
+  };
   isEditing: boolean;
 }
 
-const SurveyQuestionApp: React.FC = () => {
+interface DesignQuestionCardProps {
+  handleSubmit: (questionCards: QuestionCardData[]) => void;
+  loading: boolean;
+}
+
+const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, loading }) => {
   const [questionCards, setQuestionCards] = useState<QuestionCardData[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<QuestionCardData>({
     id: Date.now(),
-    question: '',
-    description: '',
-    questionType: 'open',
-    response: '',
+    data: {
+      question: '',
+      description: '',
+      questionType: 'open',
+      answer: '',
+    },
     isEditing: false,
   });
 
   const handleAddQuestion = () => {
-    if (currentQuestion.question.trim() === '') {
-      alert('Question Can Not Be Empty！');
+    if (currentQuestion.data.question.trim() === '') {
+      alert('Question Can Not Be Empty!');
+      return;
+    }
+    if (currentQuestion.data.description.trim() === '') {
+      alert('Rate & Description Can Not Be Empty!');
+      return;
+    }
+    if (currentQuestion.data.answer.trim() === '') {
+      alert('Answer Can Not Be Empty!');
       return;
     }
 
@@ -46,15 +64,19 @@ const SurveyQuestionApp: React.FC = () => {
       { ...currentQuestion, isEditing: false },
       ...prev,
     ]);
-    setCurrentQuestion({
-      id: Date.now(),
-      question: '',
-      description: '',
-      questionType: 'open',
-      response: '',
-      isEditing: false,
-    });
+      setCurrentQuestion({
+        id: Date.now(),
+        data: {
+          question: '',
+          description: '',
+          questionType: 'open',
+          answer: '',
+        },
+        isEditing: false,
+      });
   };
+
+  
 
   const handleDeleteQuestion = (id: number) => {
     setQuestionCards((prev) => prev.filter((card) => card.id !== id));
@@ -91,9 +113,15 @@ const SurveyQuestionApp: React.FC = () => {
             variant="outlined"
             fullWidth
             margin="normal"
-            value={currentQuestion.question}
+            value={currentQuestion.data.question}
             onChange={(e) =>
-              setCurrentQuestion({ ...currentQuestion, question: e.target.value })
+              setCurrentQuestion({ 
+                ...currentQuestion, 
+                data: {
+                  ...currentQuestion.data,
+                  question: e.target.value,
+                },
+              })
             }
             multiline
             rows={3}
@@ -108,11 +136,14 @@ const SurveyQuestionApp: React.FC = () => {
             <InputLabel id="question-type-label">Question Type</InputLabel>
             <Select
               labelId="question-type-label"
-              value={currentQuestion.questionType}
+              value={currentQuestion.data.questionType}
               onChange={(e) =>
                 setCurrentQuestion({
                   ...currentQuestion,
-                  questionType: e.target.value as 'open' | 'closed',
+                  data: {
+                    ...currentQuestion.data,
+                    questionType: e.target.value as 'open' | 'closed',
+                  },
                 })
               }
               label="Question Type"
@@ -126,9 +157,15 @@ const SurveyQuestionApp: React.FC = () => {
             variant="outlined"
             fullWidth
             margin="normal"
-            value={currentQuestion.description}
+            value={currentQuestion.data.description}
             onChange={(e) =>
-              setCurrentQuestion({ ...currentQuestion, description: e.target.value })
+              setCurrentQuestion({
+                 ...currentQuestion, 
+                 data : {
+                  ...currentQuestion.data,
+                  description: e.target.value 
+                 },
+              })
             }
             multiline
             rows={5}
@@ -144,9 +181,15 @@ const SurveyQuestionApp: React.FC = () => {
             variant="outlined"
             fullWidth
             margin="normal"
-            value={currentQuestion.response}
+            value={currentQuestion.data.answer}
             onChange={(e) =>
-              setCurrentQuestion({ ...currentQuestion, response: e.target.value })
+              setCurrentQuestion({ 
+                ...currentQuestion, 
+                data: {
+                  ...currentQuestion.data,
+                  answer: e.target.value, 
+                },
+              })
             }
             multiline
             rows={5}
@@ -159,12 +202,23 @@ const SurveyQuestionApp: React.FC = () => {
           />
           <Button
             variant="contained"
+            endIcon={<AddIcon />}
             color="primary"
             fullWidth
             sx={{ marginTop: 2 }}
             onClick={handleAddQuestion}
           >
             Add New
+          </Button>
+          <Button
+            variant="contained"
+            endIcon={<SendIcon />}
+            color="primary"
+            fullWidth
+            sx={{ marginTop: 2 }}
+            //onClick={console.log("clicked")}
+          >
+            Submit
           </Button>
         </CardContent>
       </Card>
@@ -179,11 +233,17 @@ const SurveyQuestionApp: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   margin="normal"
-                  value={card.question}
+                  value={card.data.question}
                   onChange={(e) =>
                     setQuestionCards((prev) =>
                       prev.map((c) =>
-                        c.id === card.id ? { ...c, question: e.target.value } : c
+                        c.id === card.id ? { 
+                          ...c, 
+                          data: {
+                            ...c.data,
+                            question: e.target.value,
+                          },
+                        } : c
                       )
                     )
                   }
@@ -200,13 +260,17 @@ const SurveyQuestionApp: React.FC = () => {
                   <InputLabel id="question-type-label">Question Type</InputLabel>
                   <Select
                     labelId="question-type-label"
-                    value={card.questionType}
+                    value={card.data.questionType}
                     onChange={(e) =>
                       setQuestionCards((prev) =>
                         prev.map((c) =>
                           c.id === card.id ? { 
                             ...c, 
-                            questionType: e.target.value as 'open' | 'closed' } : c
+                            data: {
+                              ...c.data,
+                              questionType: e.target.value as 'open' | 'closed',
+                            },
+                          } : c
                         )
                       )
                     }
@@ -221,11 +285,17 @@ const SurveyQuestionApp: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   margin="normal"
-                  value={card.description}
+                  value={card.data.description}
                   onChange={(e) =>
                     setQuestionCards((prev) =>
                       prev.map((c) =>
-                        c.id === card.id ? { ...c, description: e.target.value } : c
+                        c.id === card.id ? { 
+                          ...c, 
+                          data: {
+                            ...c.data,
+                            description: e.target.value,
+                          },
+                        } : c
                       )
                     )
                   }
@@ -243,11 +313,17 @@ const SurveyQuestionApp: React.FC = () => {
                   variant="outlined"
                   fullWidth
                   margin="normal"
-                  value={card.response}
+                  value={card.data.answer}
                   onChange={(e) =>
                     setQuestionCards((prev) =>
                       prev.map((c) =>
-                        c.id === card.id ? { ...c, response: e.target.value } : c
+                        c.id === card.id ? { 
+                          ...c, 
+                          data: {
+                            ...c.data,
+                            answer: e.target.value,
+                          },
+                        } : c
                       )
                     )
                   }
@@ -273,16 +349,16 @@ const SurveyQuestionApp: React.FC = () => {
             ) : (
               <>
                 <Typography variant="body1" color="primary" gutterBottom>
-                  Ques：{card.question}
+                  Ques：{card.data.question}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Type：{card.questionType}
+                  Type：{card.data.questionType}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Rat & Des：{card.description}
+                  Rat & Des：{card.data.description}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Ans：{card.response}
+                  Ans：{card.data.answer}
                 </Typography>
                 <Box display="flex" justifyContent="space-between">
                   <IconButton
@@ -309,4 +385,4 @@ const SurveyQuestionApp: React.FC = () => {
   );
 };
 
-export default SurveyQuestionApp;
+export default DesignQuestionCard;

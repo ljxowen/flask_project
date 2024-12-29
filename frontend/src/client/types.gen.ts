@@ -4,6 +4,18 @@ export type Login = {
     email?: string;
 };
 
+export type Question = {
+    answer?: string;
+    description?: string;
+    id?: number;
+    is_open?: boolean;
+    question?: string;
+};
+
+export type QuestionList = {
+    questions?: Array<Question>;
+};
+
 export type User = {
     created_at?: string;
     designed_question_id?: Array<(string)>;
@@ -42,6 +54,22 @@ export type PostApiLoginUsersData = {
 };
 
 export type PostApiLoginUsersResponse = (Login);
+
+export type OptionsApiQuestionCreateQuestionsData = {
+    body?: QuestionList;
+};
+
+export type OptionsApiQuestionCreateQuestionsResponse = (Array<Question>);
+
+export type PostApiQuestionCreateQuestionsData = {
+    body?: QuestionList;
+};
+
+export type PostApiQuestionCreateQuestionsResponse = (Array<Question>);
+
+export type GetApiQuestionQuestionsResponse = (Array<Question>);
+
+export type OptionsApiQuestionQuestionsResponse = (Array<Question>);
 
 export type OptionsApiUserCreateUserData = {
     body?: UserCreate;

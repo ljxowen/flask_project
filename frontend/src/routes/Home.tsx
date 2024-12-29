@@ -12,10 +12,9 @@ const Home = () => {
         <React.Fragment>
             < ResponsiveAppBar />
             < TextIntroduction />
-            < CardButton />s
+            < CardButton />
         </React.Fragment>
     </ThemeProvider>
-
   );
 };
 

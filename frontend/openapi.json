@@ -9,6 +9,37 @@
       },
       "type": "object"
     },
+    "Question": {
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_open": {
+          "type": "boolean"
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "QuestionList": {
+      "properties": {
+        "questions": {
+          "items": {
+            "$ref": "#/definitions/Question"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
     "User": {
       "properties": {
         "created_at": {
@@ -147,6 +178,100 @@
         },
         "tags": [
           "login"
+        ]
+      }
+    },
+    "/api/question/create_questions": {
+      "options": {
+        "description": "Create the questions",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/QuestionList"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Question"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "questions"
+        ]
+      },
+      "post": {
+        "description": "Create the questions",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/QuestionList"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Question"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "questions"
+        ]
+      }
+    },
+    "/api/question/questions": {
+      "get": {
+        "description": "Retrieve the questions",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Question"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "questions"
+        ]
+      },
+      "options": {
+        "description": "Retrieve the questions",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Question"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "tags": [
+          "questions"
         ]
       }
     },

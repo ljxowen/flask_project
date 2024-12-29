@@ -3,7 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { OptionsApiLoginUsersData, OptionsApiLoginUsersResponse, PostApiLoginUsersData, PostApiLoginUsersResponse, OptionsApiUserCreateUserData, OptionsApiUserCreateUserResponse, PostApiUserCreateUserData, PostApiUserCreateUserResponse, DeleteApiUserDeleteUserData, DeleteApiUserDeleteUserResponse, OptionsApiUserDeleteUserData, OptionsApiUserDeleteUserResponse, OptionsApiUserUpdateUserData, OptionsApiUserUpdateUserResponse, PatchApiUserUpdateUserData, PatchApiUserUpdateUserResponse, GetApiUserUserByEmailData, GetApiUserUserByEmailResponse, OptionsApiUserUserByEmailData, OptionsApiUserUserByEmailResponse, GetApiUserUsersResponse, OptionsApiUserUsersResponse } from './types.gen';
+import type { OptionsApiLoginUsersData, OptionsApiLoginUsersResponse, PostApiLoginUsersData, PostApiLoginUsersResponse, OptionsApiQuestionCreateQuestionsData, OptionsApiQuestionCreateQuestionsResponse, PostApiQuestionCreateQuestionsData, PostApiQuestionCreateQuestionsResponse, GetApiQuestionQuestionsResponse, OptionsApiQuestionQuestionsResponse, OptionsApiUserCreateUserData, OptionsApiUserCreateUserResponse, PostApiUserCreateUserData, PostApiUserCreateUserResponse, DeleteApiUserDeleteUserData, DeleteApiUserDeleteUserResponse, OptionsApiUserDeleteUserData, OptionsApiUserDeleteUserResponse, OptionsApiUserUpdateUserData, OptionsApiUserUpdateUserResponse, PatchApiUserUpdateUserData, PatchApiUserUpdateUserResponse, GetApiUserUserByEmailData, GetApiUserUserByEmailResponse, OptionsApiUserUserByEmailData, OptionsApiUserUserByEmailResponse, GetApiUserUsersResponse, OptionsApiUserUsersResponse } from './types.gen';
 
 export class LoginService {
     /**
@@ -33,6 +33,63 @@ export class LoginService {
             method: 'POST',
             url: '/api/login/users',
             body: data.body
+        });
+    }
+    
+}
+
+export class QuestionsService {
+    /**
+     * Create the questions
+     * @param data The data for the request.
+     * @param data.body
+     * @returns Question
+     * @throws ApiError
+     */
+    public static optionsApiQuestionCreateQuestions(data: OptionsApiQuestionCreateQuestionsData = {}): CancelablePromise<OptionsApiQuestionCreateQuestionsResponse> {
+        return __request(OpenAPI, {
+            method: 'OPTIONS',
+            url: '/api/question/create_questions',
+            body: data.body
+        });
+    }
+    
+    /**
+     * Create the questions
+     * @param data The data for the request.
+     * @param data.body
+     * @returns Question
+     * @throws ApiError
+     */
+    public static postApiQuestionCreateQuestions(data: PostApiQuestionCreateQuestionsData = {}): CancelablePromise<PostApiQuestionCreateQuestionsResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/question/create_questions',
+            body: data.body
+        });
+    }
+    
+    /**
+     * Retrieve the questions
+     * @returns Question
+     * @throws ApiError
+     */
+    public static getApiQuestionQuestions(): CancelablePromise<GetApiQuestionQuestionsResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/question/questions'
+        });
+    }
+    
+    /**
+     * Retrieve the questions
+     * @returns Question
+     * @throws ApiError
+     */
+    public static optionsApiQuestionQuestions(): CancelablePromise<OptionsApiQuestionQuestionsResponse> {
+        return __request(OpenAPI, {
+            method: 'OPTIONS',
+            url: '/api/question/questions'
         });
     }
     
