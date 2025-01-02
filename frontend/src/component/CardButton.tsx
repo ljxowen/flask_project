@@ -9,13 +9,16 @@ type HoverCardButtonProps = {
   onClick?: () => void; 
 };
 
+
+
 const HoverCardButton: React.FC<HoverCardButtonProps> = ({ logo, largeText, onClick }) => {
   const theme = useTheme();
-
   return (
     <Card
       onClick={onClick}
       sx={{
+        position: "relative", 
+        zIndex: 1, 
         display: "flex",
         flexDirection: "column",
         alignItems: "left",
@@ -24,17 +27,23 @@ const HoverCardButton: React.FC<HoverCardButtonProps> = ({ logo, largeText, onCl
         width: 350,
         height: 200,
         backgroundColor: "white",
+        border: `0.5px solid ${theme.palette.primary.main}50`,
         boxShadow: 1,
+        borderRadius: '0px',
         transition: "all 0.3s ease",
         transform: "scale(1)",
         '&:hover': {
           backgroundColor: theme.palette.secondary.main,
-          boxShadow: 4,
+          //boxShadow: 4,
           transform: "scale(1.05)",
+          zIndex: 3,
         },
         '&:hover .arrow': {
           opacity: 1,
           transform: "translateX(10px)",
+        },
+        "&:hover .rotating-img": {
+          transform: "rotateY(180deg)", 
         },
       }}
     >
@@ -52,9 +61,14 @@ const HoverCardButton: React.FC<HoverCardButtonProps> = ({ logo, largeText, onCl
       >
         <Box
           component="img"
+          className="rotating-img"
           src={logo}
           alt="logo"
-          sx={{ width: 40, height: 40 }}
+          sx={{ 
+            width: 40, 
+            height: 40,
+            transition: "transform 0.8s ease",
+          }}
         />
       </Box>
       <Typography variant="h4" align="left" sx={{ color: theme.palette.primary.main, paddingTop: "20px" }}>
@@ -78,6 +92,7 @@ const HoverCardButton: React.FC<HoverCardButtonProps> = ({ logo, largeText, onCl
 
 const CardButton: React.FC = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleDesignClick = () => {
     navigate(`/Design`);
@@ -89,12 +104,12 @@ const CardButton: React.FC = () => {
   };
 
   return (
-    <Box sx={{ marginTop: "40px" }}>
-      <Typography variant="h4" sx={{ fontWeight: 700 }}>
+    <Box sx={{ marginTop: "80px", padding: "16px" }}>
+      <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.primary.main }} gutterBottom>
         Choose Your Task
       </Typography>
 
-      <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Box sx={{ flexGrow: 1, p: 2}}>
       <Grid2 container spacing={2} justifyContent="center" component="div">
         <Grid2 component="div">
           <HoverCardButton

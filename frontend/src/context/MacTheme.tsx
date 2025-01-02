@@ -21,6 +21,7 @@ const macTheme = createTheme({
     },
     tertiary: {
       main: "#AAD5E1", // McMaster Albion Falls Blue
+      light: "#DBDBDD" // Dundurn Grey
     },
   },
   typography: {
