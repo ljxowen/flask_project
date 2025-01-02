@@ -35,7 +35,7 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setDialogTitle(title);
     setDialogMessage(message);
     setOnConfirmCallback(() => onConfirm); // Use a function wrapper to avoid stale state
-    setOnCancelCallback(() => onCancel);
+    setOnCancelCallback(() => onCancel || undefined);
     setOpen(true);
   };
 
@@ -68,9 +68,11 @@ export const DialogProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         <DialogTitle>{dialogTitle}</DialogTitle>
         <DialogContent>{dialogMessage}</DialogContent>
         <DialogActions>
-          <Button onClick={handleCancel} color="secondary">
-            Cancel
-          </Button>
+          {onCancelCallback && (
+            <Button onClick={handleCancel} color="primary">
+              Cancel
+            </Button>
+          )}
           <Button onClick={handleConfirm} color="primary">
             Confirm
           </Button>

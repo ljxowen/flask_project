@@ -46,6 +46,10 @@ function ResponsiveAppBar() {
     if (page === "Home") { page = "" };
     if (page === "Login") { page = "SignIn" };
     if (page === "Sign Up") { page = "SignUp" };
+    if (page === "Rank") { 
+      alert('This page not open yet');
+      page = "/"
+     };
 
     if (page === "Logout") { 
       page = "";

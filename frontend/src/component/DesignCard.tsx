@@ -16,6 +16,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import SendIcon from '@mui/icons-material/Send';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useDialog } from "../hooks/useDialog";
 
 export interface QuestionCardData {
   id: number;
@@ -45,6 +47,35 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
     },
     isEditing: false,
   });
+  const { showDialog } = useDialog();
+
+  const handleSubmitQuestion = () => {
+    if (questionCards.length === 0) {
+      alert("Can't Submit Empty Questions")
+      return;
+    }
+    handleSubmit(questionCards);
+    handleAfterSubmit();
+  }
+
+  const handleAfterSubmit = () => {
+    showDialog(
+      'Thank You!',
+      'Your contributed questions have been successfully submitted!',
+    );
+
+    setQuestionCards([]);
+    setCurrentQuestion({
+      id: Date.now(),
+      data: {
+        question: '',
+        description: '',
+        questionType: 'open',
+        answer: '',
+      },
+      isEditing: false,
+    });
+  }
 
   const handleAddQuestion = () => {
     if (currentQuestion.data.question.trim() === '') {
@@ -76,8 +107,6 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
       });
   };
 
-  
-
   const handleDeleteQuestion = (id: number) => {
     setQuestionCards((prev) => prev.filter((card) => card.id !== id));
   };
@@ -97,6 +126,10 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
   };
 
   return (
+    <>
+    {loading ? (
+      < CircularProgress />
+    ) : (
     <Box sx={{ maxWidth: 600, margin: '20px auto' }}>
       <Card sx={{ marginBottom: 3, padding: 2 }}>
         <CardContent>
@@ -202,23 +235,13 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
           />
           <Button
             variant="contained"
-            endIcon={<AddIcon />}
+            endIcon={< AddIcon />}
             color="primary"
             fullWidth
             sx={{ marginTop: 2 }}
             onClick={handleAddQuestion}
           >
-            Add New
-          </Button>
-          <Button
-            variant="contained"
-            endIcon={<SendIcon />}
-            color="primary"
-            fullWidth
-            sx={{ marginTop: 2 }}
-            //onClick={console.log("clicked")}
-          >
-            Submit
+            Save
           </Button>
         </CardContent>
       </Card>
@@ -381,7 +404,19 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
           </CardContent>
         </Card>
       ))}
+      <Button
+        variant="contained"
+        endIcon={< SendIcon />}
+        color="primary"
+        fullWidth
+        sx={{ marginTop: 2 }}
+        onClick={handleSubmitQuestion}
+      >
+        Submit
+      </Button>
     </Box>
+    )}
+    </>
   );
 };
 

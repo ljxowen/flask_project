@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { QuestionsService, QuestionList } from "../client";
 import { extractErrorMessage } from "../utils/apiErrorHandler";
 import { message } from '../utils/message';
+import { Typography } from "@mui/material";
 
 
 const convertToQuestionList = (questionCards: QuestionCardData[]): QuestionList => {
@@ -32,7 +33,7 @@ const Design = () => {
   const handleShowDialog = () => {
     showDialog(
       'Action Required', 
-      'You need login first to access this page', 
+      'You need login to access this page', 
       () => {navigate(`/SignIn`)},
       () => {navigate(`/`)},
     );
@@ -53,6 +54,7 @@ const Design = () => {
     }
   }
 
+
   useEffect(() => {
     if (!isAuthenticated) {
       handleShowDialog();
@@ -61,12 +63,17 @@ const Design = () => {
 
   return (
     <ThemeProvider theme={macTheme}>
-        <React.Fragment>
-            < ResponsiveAppBar />
-            < DesignCard />
-        </React.Fragment>
+      <React.Fragment>
+          < ResponsiveAppBar />
+            {isAuthenticated ? (
+              < DesignCard handleSubmit={handleSubmitQuestions} loading={loading} />
+            ): (
+              <Typography variant="h4" padding="50px"> 
+              You need login to access this page  
+            </Typography>
+            )}
+      </React.Fragment>
     </ThemeProvider>
-
   );
 };
 

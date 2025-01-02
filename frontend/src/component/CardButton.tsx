@@ -21,8 +21,8 @@ const HoverCardButton: React.FC<HoverCardButtonProps> = ({ logo, largeText, onCl
         alignItems: "left",
         justifyContent: "left",
         p: 2,
-        width: 220,
-        height: 120,
+        width: 350,
+        height: 200,
         backgroundColor: "white",
         boxShadow: 1,
         transition: "all 0.3s ease",
@@ -40,8 +40,8 @@ const HoverCardButton: React.FC<HoverCardButtonProps> = ({ logo, largeText, onCl
     >
       <Box
         sx={{
-          width: 70,
-          height: 70,
+          width: 100,
+          height: 100,
           borderRadius: "50%",
           backgroundColor: theme.palette.tertiary.main,
           display: "flex",
@@ -57,7 +57,7 @@ const HoverCardButton: React.FC<HoverCardButtonProps> = ({ logo, largeText, onCl
           sx={{ width: 40, height: 40 }}
         />
       </Box>
-      <Typography variant="h6" fontWeight="bold" align="left" sx={{ color: theme.palette.primary.main }}>
+      <Typography variant="h4" align="left" sx={{ color: theme.palette.primary.main, paddingTop: "20px" }}>
         {largeText}
         <ArrowForwardIcon
           className="arrow"
@@ -89,23 +89,29 @@ const CardButton: React.FC = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, p: 2 }}>
+    <Box sx={{ marginTop: "40px" }}>
+      <Typography variant="h4" sx={{ fontWeight: 700 }}>
+        Choose Your Task
+      </Typography>
+
+      <Box sx={{ flexGrow: 1, p: 2 }}>
       <Grid2 container spacing={2} justifyContent="center" component="div">
         <Grid2 component="div">
           <HoverCardButton
             logo="\task_logo.png"
-            largeText="Rank Question"
+            largeText="Rank Questions"
             onClick={handleRankClick}
           />
         </Grid2>
         <Grid2 component="div">
           <HoverCardButton
             logo="\writing_logo.png"
-            largeText="Design Question"
+            largeText="Design Questions"
             onClick={handleDesignClick}
           />
         </Grid2>
       </Grid2>
+      </Box>
     </Box>
   );
 };
