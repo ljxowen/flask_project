@@ -104,7 +104,7 @@ const CardButton: React.FC = () => {
   };
 
   return (
-    <Box sx={{ marginTop: "80px", padding: "16px" }}>
+    <Box sx={{ padding: "80px" }}>
       <Typography variant="h4" sx={{ fontWeight: 600, color: theme.palette.primary.main }} gutterBottom>
         Choose Your Task
       </Typography>

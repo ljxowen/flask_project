@@ -372,16 +372,16 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
             ) : (
               <>
                 <Typography variant="body1" color="primary" gutterBottom>
-                  Ques：{card.data.question}
+                  Q：{card.data.question}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Type：{card.data.questionType}
+                  T：{card.data.questionType}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Rat & Des：{card.data.description}
+                  R&D：{card.data.description}
                 </Typography>
                 <Typography variant="body2" color="primary" gutterBottom>
-                  Ans：{card.data.answer}
+                  A：{card.data.answer}
                 </Typography>
                 <Box display="flex" justifyContent="space-between">
                   <IconButton
