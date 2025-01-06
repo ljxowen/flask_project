@@ -14,6 +14,7 @@ export type Question = {
 
 export type QuestionList = {
     questions?: Array<Question>;
+    user_email?: string;
 };
 
 export type User = {

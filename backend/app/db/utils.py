@@ -75,14 +75,17 @@ def authenticate(db_session, email):
 
 
 # Questions
-def create_question_list(db_session, questions):
+def create_question_list(db_session, questions, email):
     question_list = []
+    user = db_session.query(User).filter(User.email == email).first()
+
     for q in questions:
         question = Question(
             question = q["question"],
             description = q["description"],
             is_open = q["is_open"],
             answer = q["answer"],
+            designed_by_user = user
         )
 
         db_session.add(question)

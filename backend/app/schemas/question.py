@@ -16,5 +16,7 @@ class QuestionSchema(BaseSchema):
     answer = fields.Str()
     # rank = fields.List(fields.Int())
 
+
 class QuestionListSchema(BaseSchema):
+    user_email = fields.Email()
     questions = fields.List(fields.Nested(QuestionSchema))

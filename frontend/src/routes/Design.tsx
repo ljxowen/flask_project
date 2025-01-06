@@ -12,7 +12,7 @@ import { message } from '../utils/message';
 import { Typography } from "@mui/material";
 
 
-const convertToQuestionList = (questionCards: QuestionCardData[]): QuestionList => {
+const convertToQuestionList = (questionCards: QuestionCardData[], user_email: string): QuestionList => {
   return {
     questions: questionCards.map((card) => ({
       id: card.id,
@@ -21,12 +21,13 @@ const convertToQuestionList = (questionCards: QuestionCardData[]): QuestionList 
       is_open: card.data.questionType === 'open', 
       answer: card.data.answer,
     })),
+    user_email: user_email,
   };
 };
 
 const Design = () => {
   const { showDialog } = useDialog();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
@@ -42,8 +43,10 @@ const Design = () => {
   const handleSubmitQuestions = async (questionCards: QuestionCardData[]) => {
     try {
       setLoading(true);
-      const body: QuestionList = convertToQuestionList(questionCards);
-      await QuestionsService.postApiQuestionCreateQuestions({ body });
+      if (user && user.email) {
+        const body: QuestionList = convertToQuestionList(questionCards, user.email);
+        await QuestionsService.postApiQuestionCreateQuestions({ body });
+      }
     } catch (error) {
       setLoading(false);
       const apiErrorMessage = extractErrorMessage(error);
@@ -56,7 +59,7 @@ const Design = () => {
 
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated === false) {
       handleShowDialog();
     }
   }, [isAuthenticated])

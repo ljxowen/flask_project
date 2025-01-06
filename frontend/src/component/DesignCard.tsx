@@ -125,6 +125,7 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
     );
   };
 
+
   return (
     <>
     {loading ? (
@@ -157,11 +158,16 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
               })
             }
             multiline
-            rows={3}
-            sx={{
-              '& .MuiInputBase-root': {
-                resize: 'vertical',
-                overflow: 'auto',
+            minRows={3}
+            slotProps={{
+              input: {
+                sx: {
+                  '& textarea': {
+                    resize: 'vertical',
+                    overflow: 'auto !important',
+                    alignItems: 'flex-start',
+                  },
+                },
               },
             }}
           />
@@ -202,10 +208,15 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
             }
             multiline
             rows={5}
-            sx={{
-              '& .MuiInputBase-root': {
-                resize: 'vertical',
-                overflow: 'auto',
+            slotProps={{
+              input: {
+                sx: {
+                  '& textarea': {
+                    resize: 'vertical',
+                    overflow: 'auto !important',
+                    alignItems: 'flex-start',
+                  },
+                },
               },
             }}
           />
@@ -226,10 +237,15 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
             }
             multiline
             rows={5}
-            sx={{
-              '& .MuiInputBase-root': {
-                resize: 'vertical',
-                overflow: 'auto',
+            slotProps={{
+              input: {
+                sx: {
+                  '& textarea': {
+                    resize: 'vertical',
+                    overflow: 'auto !important',
+                    alignItems: 'flex-start',
+                  },
+                },
               },
             }}
           />
@@ -271,11 +287,16 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
                     )
                   }
                   multiline
-                  rows={1}
-                  sx={{
-                    '& .MuiInputBase-root': {
-                      resize: 'vertical',
-                      overflow: 'auto',
+                  rows={3}
+                  slotProps={{
+                    input: {
+                      sx: {
+                        '& textarea': {
+                          resize: 'vertical',
+                          overflow: 'auto !important',
+                          alignItems: 'flex-start',
+                        },
+                      },
                     },
                   }}
                 />
@@ -324,10 +345,15 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
                   }
                   multiline
                   rows={3}
-                  sx={{
-                    '& .MuiInputBase-root': {
-                      resize: 'vertical',
-                      overflow: 'auto',
+                  slotProps={{
+                    input: {
+                      sx: {
+                        '& textarea': {
+                          resize: 'vertical',
+                          overflow: 'auto !important',
+                          alignItems: 'flex-start',
+                        },
+                      },
                     },
                   }}
                 />
@@ -352,10 +378,15 @@ const DesignQuestionCard: React.FC<DesignQuestionCardProps> = ({ handleSubmit, l
                   }
                   multiline
                   rows={3}
-                  sx={{
-                    '& .MuiInputBase-root': {
-                      resize: 'vertical',
-                      overflow: 'auto',
+                  slotProps={{
+                    input: {
+                      sx: {
+                        '& textarea': {
+                          resize: 'vertical',
+                          overflow: 'auto !important',
+                          alignItems: 'flex-start',
+                        },
+                      },
                     },
                   }}
                 />

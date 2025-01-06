@@ -5,6 +5,7 @@ import {
     CardContent,
     Typography,
     TextField,
+    Stack,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -111,9 +112,14 @@ const UserCard: React.FC<UserCardDataProps> = ({ userUpdate, email, first_name, 
                     ) : (
                         // not editing
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 1 }}>
-                            <Typography variant="body1" color="primary">
-                                Email：{email}
-                            </Typography>
+                            <Stack direction="row" spacing={1} useFlexGap>
+                                <Typography variant="body1" color="primary" sx={{ fontWeight: 'bold' }}>
+                                    Email:
+                                </Typography>
+                                <Typography variant="body1" color="primary">
+                                    {email}
+                                </Typography>
+                            </Stack>
                             <IconButton 
                                 id="edit_email" 
                                 color="primary" 
@@ -166,9 +172,14 @@ const UserCard: React.FC<UserCardDataProps> = ({ userUpdate, email, first_name, 
                     ) : (
                         // not editing
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 1 }}>
-                            <Typography variant="body1" color="primary">
-                                First Name：{first_name}
-                            </Typography>
+                            <Stack direction="row" spacing={1} useFlexGap>
+                                <Typography variant="body1" color="primary" sx={{ fontWeight: 'bold' }}>
+                                    First Name:
+                                </Typography>
+                                <Typography variant="body1" color="primary">
+                                    {first_name}
+                                </Typography>
+                            </Stack>
                             <IconButton 
                                 id="edit_first_name" 
                                 color="primary" 
@@ -221,9 +232,14 @@ const UserCard: React.FC<UserCardDataProps> = ({ userUpdate, email, first_name, 
                     ) : (
                         // not editing
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 1 }}>
-                            <Typography variant="body1" color="primary">
-                                Last Name：{last_name}
-                            </Typography>
+                            <Stack direction="row" spacing={1} useFlexGap>
+                                <Typography variant="body1" color="primary" sx={{ fontWeight: 'bold' }}>
+                                    Last Name:
+                                </Typography>
+                                <Typography variant="body1" color="primary">
+                                    {last_name}
+                                </Typography>
+                            </Stack>
                             <IconButton 
                                 id="edit_last_name" 
                                 color="primary" 

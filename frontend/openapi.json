@@ -36,6 +36,10 @@
             "$ref": "#/definitions/Question"
           },
           "type": "array"
+        },
+        "user_email": {
+          "format": "email",
+          "type": "string"
         }
       },
       "type": "object"

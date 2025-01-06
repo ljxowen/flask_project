@@ -23,7 +23,7 @@ def get_questions():
 @bp.route("/create_questions", methods=["POST"])
 @use_kwargs(QuestionListSchema, location="json")
 @marshal_with(QuestionSchema(many=True))
-def create_questions(questions):
+def create_questions(questions, user_email):
     if not questions or len(questions) == 0:
         return abort(
             400, f"Can't submit a empty question list"
@@ -31,7 +31,8 @@ def create_questions(questions):
     
     question_list = create_question_list(
         db_session=db_session,
-        questions=questions
+        questions=questions,
+        email=user_email
     )
 
     return question_list
